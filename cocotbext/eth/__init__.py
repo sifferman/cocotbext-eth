@@ -29,6 +29,11 @@ from .mii import MiiSource, MiiSink, MiiPhy
 from .rmii import RmiiSource, RmiiSink, RmiiPhy
 from .rgmii import RgmiiSource, RgmiiSink, RgmiiPhy
 from .xgmii import XgmiiFrame, XgmiiSource, XgmiiSink
-from .eth_mac import EthMacFrame, EthMacTx, EthMacRx, EthMac
+try:
+    from .eth_mac import EthMacFrame, EthMacTx, EthMacRx, EthMac
+except ImportError:
+    # eth_mac needs cocotbext-axi; the PHY models (gmii/mii/rmii/rgmii/xgmii) do not,
+    # so a consumer that only wants the PHYs can import this package without cocotbext-axi.
+    pass
 
 from .ptp import PtpClock, PtpClockSimTime
